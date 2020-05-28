@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-
+{% load countries %}
+{% get_countries as countries %}
 <html lang="en">
 
 <head>
@@ -8,9 +9,10 @@
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>India Coronavirus Info Live</title>
+    <title> Coronavirus Live Info</title>
 
     <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+
 
     <style>
         .blink {
@@ -39,16 +41,26 @@
 
 </head>
 
-<body style="background-color: #15202b""> 
+<body style="background-color: #15202b"> 
 
     <div class=" text-center">
 
-    <h3 style="color: white;" class="p-3 bg-primary">Coronavirus in India &nbsp; <p class = "blink" >Live</p>
-    </h3>
-
+    <h3 style="color: white;" class="p-3 bg-primary"> Select Country : 
+    <form action="" method="POST">
+    {% csrf_token %}
+    <select name="dropdown" style="width: 100px;">
+            {% for country in countries %}
+                <option value="{{ country.code }}">{{ country.name }} </option>
+            {% endfor %}
+    </select>
+    <br><br>
+    <input type="submit" value = "Fetch Data" style="color: seagreen;" >
+    </form>
+    <br>
+      <p class = "blink" >Live</p></h3>
     </div>
     <div class=" text-center">
-    <h3 style="color: white;" class="p-3 bg-primary">Date : {{day}} </h3>
+    <h3 style="color: white;" class="p-3 bg-primary">Date : {{day}}  Time : {{time}}</h3>
     </div>
     <div class="container">
 
@@ -260,16 +272,16 @@
 
         <div class="text-center">
 
-            <p class="bg-success"> Developed by : Rajat Mittal</p>
+            <p class="bg-success" ><strong>Developed by : Rajat Mittal, &nbsp; JK Institute of Applied Physics and Technology, University of Allahabad </strong>  <br> <strong>Connect With Us : &nbsp; </strong>
+                <a href="https://www.facebook.com/rajatenzyme" target ="_blank" style="color:black;"><strong>Facebook &nbsp; </strong></a>
+                <a href="https://www.instagram.com/rajat_enzyme" target ="_blank" style="color:black;"><strong>Instagram &nbsp; </strong></a>
+                <a href="https://www.linkedin.com/in/rajatenzyme" target ="_blank" style="color:black;"><strong>Linkedin &nbsp; </strong></a>
+                <a href="https://www.github.com/in/rajatenzyme" target ="_blank" style="color:black;"><strong>Github &nbsp; </strong></a>
+            </p>
 
         </div>
 
     </footer>
-
-
-
-
-
     <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
         integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
         crossorigin="anonymous"></script>
