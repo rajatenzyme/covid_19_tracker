@@ -1,11 +1,16 @@
 from django.shortcuts import render
 import requests
 import json
+from django_countries.fields import CountryField
+from django_countries import countries
 # Create your views here.
 
 def home(request):
     url = "https://covid-193.p.rapidapi.com/statistics"
-    querystring = {"country" : "INDIA"}
+    val = request.POST.get('dropdown')
+    print(dict(countries)[val])
+    x = dict(countries)[val]
+    querystring = {"country" : x }
 
     headers = {
         'x-rapidapi-host': "covid-193.p.rapidapi.com",
@@ -24,10 +29,11 @@ def home(request):
         'critical' : d['cases']['critical'],
         'tests' : d['tests']['total'],
         'day' : d['day'],
-        'time' : d['time'],
+        'time' : d['time'][11:],
         'active' : d['cases']['active'],
-        'new_deaths' : d['deaths']['new']
+        'new_deaths' : d['deaths']['new'],
     }
 
 
     return render(request, 'index.html', context)
+
